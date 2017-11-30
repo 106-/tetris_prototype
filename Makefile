@@ -10,7 +10,7 @@ LIBS=-lDxLib -lDxUseCLib -lDxDrawFunc -ljpeg -lpng -lzlib -ltiff -ltheora_static
 	 -lvorbisfile_static -logg_static -lbulletdynamics -lbulletcollision -lbulletmath -lopusfile\
 	 -lopus -lsilk_common -lcelt
 LIBS+=-lgdi32
-OBJS=main.o
+OBJS=main.o view.o tetris.o
 
 .cpp.o:
 	$(CXX) $(CXXFLAGS) -c $<
