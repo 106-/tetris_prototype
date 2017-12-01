@@ -82,18 +82,15 @@ void switch_state(states next_state)
     switch(next_state)
     {
         case DEMONSTRATION:
-			reset_buttons();
 			init_block();
             state = DEMONSTRATION;
             break;
         case PLAYING:
-			reset_buttons();
 			init_block();
 			init_tetris();
             state = PLAYING;
             break;
 		case GAMEOVER:
-			reset_buttons();
 			state = GAMEOVER;
 			break;
     }
