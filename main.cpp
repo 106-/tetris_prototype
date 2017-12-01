@@ -96,7 +96,7 @@ void reset_buttons()
 // ボタンが入力されているかどうかを取得する.
 void check_buttons()
 {
-	int button_input[] = {KEY_INPUT_J, KEY_INPUT_K, KEY_INPUT_L, KEY_INPUT_SEMICOLON};
+	int button_input[] = {KEY_INPUT_SEMICOLON, KEY_INPUT_L, KEY_INPUT_K, KEY_INPUT_J};
 	int i;
 	for(i=0; i<NUM_BUTTON; i++)
 	{
