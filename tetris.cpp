@@ -31,6 +31,9 @@ void block_down();
 void generateblock();
 int check_collision(active_block);
 void switch_block(active_block, int, int);
+void delete_line();
+void drop_blocks(int n);
+int is_can_delete(int n);
 
 active_block active;
 block next_block;
@@ -112,6 +115,7 @@ void block_down()
         // 元に戻す
         active.y--;
         switch_block(active, 1, active.b.color);
+        delete_line();
         generateblock();
     }
 
@@ -144,6 +148,49 @@ void move_block()
             active.x--;
         switch_block(active, 1, active.b.color);
     }
+}
+
+// 消すべき行があれば消して,ブロックを一つずつづらす
+void delete_line()
+{
+    int i;
+    for(i=4; i< BOARD_HEIGHT-1; i++)
+    {
+        if(is_can_delete(i))
+        {
+            drop_blocks(i);
+        }
+    }
+}
+
+// n行目を消し,上のブロックを落とす
+void drop_blocks(int n)
+{
+    int x,y;
+    for(x=1; x<BOARD_WIDTH-1; x++)
+    {
+        board[n][x].flg = 0;
+    }
+    for(y=n; 4<y; y--)
+    {
+        for(x=1; x<BOARD_WIDTH-1; x++)
+        {
+            board[y][x].flg = board[y-1][x].flg;
+            board[y][x].color = board[y][x].color;
+        }
+    }
+}
+
+// n行目は消すべきかどうかを判断する
+int is_can_delete(int n)
+{
+    int i;
+    for(i=1; i<BOARD_WIDTH-1; i++)
+    {
+        if(!board[n][i].flg)
+        return 0;
+    }
+    return 1;
 }
 
 // ブロックを回転させる clockwise=1で時計回り,0で反時計回り

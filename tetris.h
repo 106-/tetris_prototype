@@ -9,7 +9,7 @@ void tetris_update();
 #define BOARD_HEIGHT 25
 
 // 初期のブロックが落ちる頻度
-#define INIT_FREQ 50
+#define INIT_FREQ 10
 
 // ブロックの数
 #define BLOCK_NUM 4
