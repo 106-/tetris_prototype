@@ -42,6 +42,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 				tetris_update();
 				draw_appearance();
 				draw_block();
+				draw_next_block();
 				break;
 		}
 

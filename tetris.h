@@ -20,4 +20,16 @@ typedef struct{
     int color;
 } board_element;
 
+typedef struct
+{
+    int x;
+    int y;
+} point;
+
+typedef struct
+{
+    point child[4];
+    int color;
+} block;
+
 #endif

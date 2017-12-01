@@ -8,18 +8,6 @@ typedef struct
 {
     int x;
     int y;
-} point;
-
-typedef struct
-{
-    point child[4];
-    int color;
-} block;
-
-typedef struct
-{
-    int x;
-    int y;
     block b;
 } active_block;
 
@@ -36,7 +24,7 @@ void drop_blocks(int n);
 int is_can_delete(int n);
 
 active_block active;
-block next_block;
+block next;
 board_element board[BOARD_HEIGHT][BOARD_WIDTH];
 
 block blocks[8] = {
@@ -80,7 +68,7 @@ void init_tetris()
     {
         board[BOARD_HEIGHT-1][i].flg = 1;
     }
-    next_block = blocks[1];
+    next = blocks[rand()%7+1];
     generateblock();
 }
 
@@ -251,6 +239,7 @@ void generateblock()
 {
     active.x = 5;
     active.y = 3;
-    active.b = next_block;
-    next_block = blocks[1];
+    active.b = next;
+    next = blocks[rand()%7+1];
+    assign_next_block(next);
 }

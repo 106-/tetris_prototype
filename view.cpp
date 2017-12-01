@@ -6,6 +6,10 @@
 #define TETRIS_VIEW_WIDTH  10
 #define TETRIS_VIEW_HEIGHT 20
 
+// 次のブロックを表示する場所
+#define NEXT_BLOCK_WIDTH 5
+#define NEXT_BLOCK_HEIGHT 5
+
 typedef struct
 {
     int flg;
@@ -13,6 +17,7 @@ typedef struct
 }view_block_struct;
 
 view_block_struct view_block[TETRIS_VIEW_HEIGHT][TETRIS_VIEW_WIDTH];
+view_block_struct next_block[NEXT_BLOCK_HEIGHT][NEXT_BLOCK_WIDTH];
 
 // 四角形を描画する 移植を容易にするための処置.
 void render_box(int x1, int y1, int x2, int y2, int color)
@@ -72,6 +77,14 @@ void init_block()
 			view_block[y][x].color = COLOR_BLACK;
 		}
 	}
+	for(y=0; y<NEXT_BLOCK_HEIGHT; y++)
+	{
+		for(x=0; x<NEXT_BLOCK_WIDTH; x++)
+		{
+			next_block[y][x].flg = 0;
+			next_block[y][x].color = COLOR_BLACK;
+		}
+	}
 }
 
 // 適当な色のブロックを表示しておく.
@@ -108,6 +121,25 @@ void draw_block()
 	}
 }
 
+// 次のブロックの部分を描画する.
+void draw_next_block()
+{
+	int x, y;
+	for(y=0; y<NEXT_BLOCK_HEIGHT; y++)
+	{
+		for(x=0; x<NEXT_BLOCK_WIDTH; x++)
+		{
+			if(next_block[y][x].flg)
+			{
+				// 170, 25はブロックのスペースの右上の座標
+				int ulx = 170+x*10;
+				int uly = 25+y*10;
+				render_box(ulx+1, uly+1, ulx+9, uly+9, next_block[y][x].color);
+			}
+		}
+	}
+}
+
 // ブロックの状態を代入する.
 void assign_block(board_element board[BOARD_HEIGHT][BOARD_WIDTH])
 {
@@ -126,5 +158,28 @@ void assign_block(board_element board[BOARD_HEIGHT][BOARD_WIDTH])
 				view_block[i-4][n-1].flg = 0;
 			}
 		}
+	}
+}
+
+// 次のブロックを代入する.
+void assign_next_block(block b)
+{
+	int x,y,i;
+	// 初期化する.
+	for(y=0; y<NEXT_BLOCK_HEIGHT; y++)
+	{
+		for(x=0; x<NEXT_BLOCK_WIDTH; x++)
+		{
+			next_block[y][x].flg = 0;
+			next_block[y][x].color = COLOR_BLACK;
+		}
+	}
+	// 原点の位置
+	x = 2;
+	y = 2;
+	for(i=0; i<BLOCK_NUM; i++)
+	{
+		next_block[b.child[i].y + y][b.child[i].x + x].flg = 1;
+		next_block[b.child[i].y + y][b.child[i].x + x].color = b.color; 
 	}
 }

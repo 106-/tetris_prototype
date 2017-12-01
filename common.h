@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "./DxLib/DxLib.h"
 
 // 画面サイズの定義
