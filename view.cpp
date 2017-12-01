@@ -109,21 +109,21 @@ void draw_block()
 }
 
 // ブロックの状態を代入する.
-void assign_block(board_element board[BOARD_WIDTH][BOARD_HEIGHT])
+void assign_block(board_element board[BOARD_HEIGHT][BOARD_WIDTH])
 {
 	int i,n;
-	for(i=0; i<TETRIS_VIEW_WIDTH; i++)
+	for(i=4; i<BOARD_HEIGHT-1; i++)
 	{
-		for(n=0; n<TETRIS_VIEW_HEIGHT; n++)
+		for(n=1; n<BOARD_WIDTH-1; n++)
 		{
-			if(board[i+1][n+4].flg)
+			if(board[i][n].flg)
 			{
-				view_block[i][n].flg = 1;
-				view_block[i][n].color = board[i+1][n+4].color;
+				view_block[i-4][n-1].flg = 1;
+				view_block[i-4][n-1].color = board[i][n].color;
 			}
 			else
 			{
-				view_block[i][n].flg = 0;
+				view_block[i-4][n-1].flg = 0;
 			}
 		}
 	}

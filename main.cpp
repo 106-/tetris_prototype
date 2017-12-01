@@ -20,7 +20,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	if( DxLib_Init() == -1 || SetDrawScreen(-2) != 0 )
 		return -1;
 	
-	switch_state(DEMONSTRATION);
+	switch_state(PLAYING);
 
 	while(ProcessMessage() == 0)
 	{

@@ -4,9 +4,17 @@
 void init_tetris();
 void tetris_update();
 
+// 当たり判定用のボードの広さ
 #define BOARD_WIDTH 12
 #define BOARD_HEIGHT 25
 
+// 初期のブロックが落ちる頻度
+#define INIT_FREQ 10
+
+// ブロックの数
+#define BLOCK_NUM 4
+
+// ボード一つ一つの要素
 typedef struct{
     int flg;
     int color;
