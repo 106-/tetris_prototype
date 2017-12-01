@@ -1,5 +1,6 @@
 #include "common.h"
 #include "view.h"
+#include "tetris.h"
 
 // ブロックを表示するときの縦横
 #define TETRIS_VIEW_WIDTH  10
@@ -102,6 +103,27 @@ void draw_block()
 				int ulx = 50+x*10;
 				int uly = 20+y*10;
 				render_box(ulx+1, uly+1, ulx+9, uly+9, view_block[y][x].color);
+			}
+		}
+	}
+}
+
+// ブロックの状態を代入する.
+void assign_block(board_element board[BOARD_WIDTH][BOARD_HEIGHT])
+{
+	int i,n;
+	for(i=0; i<TETRIS_VIEW_WIDTH; i++)
+	{
+		for(n=0; n<TETRIS_VIEW_HEIGHT; n++)
+		{
+			if(board[i+1][n+4].flg)
+			{
+				view_block[i][n].flg = 1;
+				view_block[i][n].color = board[i+1][n+4].color;
+			}
+			else
+			{
+				view_block[i][n].flg = 0;
 			}
 		}
 	}

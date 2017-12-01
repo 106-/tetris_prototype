@@ -29,17 +29,19 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 		check_buttons();
 
-		draw_appearance();
-		draw_block();
-
 		switch(state)
 		{
 			case DEMONSTRATION:	
+				draw_appearance();
 				if(cnt%10==0)
 					demo();
+				draw_block();
 				draw_dialogue("DEMONSTRATION");
 				break;
 			case PLAYING:
+				tetris_update();
+				draw_appearance();
+				draw_block();
 				break;
 		}
 
