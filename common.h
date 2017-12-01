@@ -57,6 +57,7 @@ extern int button[4];
 typedef enum {
     DEMONSTRATION,
     PLAYING,
+    GAMEOVER,
 }states;
 
 extern states state;

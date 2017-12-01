@@ -1,5 +1,6 @@
 #include "common.h"
 #include "view.h"
+#include "main.h"
 
 // scoreはglobal変数
 int score = 0;
@@ -21,6 +22,7 @@ int check_collision(active_block);
 void switch_block(active_block, int, int);
 void delete_line();
 void drop_blocks(int n);
+void game_over();
 int is_can_delete(int n);
 
 active_block active;
@@ -240,6 +242,28 @@ void generateblock()
     active.x = 5;
     active.y = 3;
     active.b = next;
+    if(check_collision(active))
+    {
+        game_over();
+        return;
+    }
     next = blocks[rand()%7+1];
     assign_next_block(next);
+}
+
+// ゲームオーバー時. 全てのブロックを白くする.
+void game_over()
+{
+    switch_state(GAMEOVER);
+    int x,y;
+    for(y=0; y<BOARD_HEIGHT; y++)
+    {
+        for(x=0; x<BOARD_WIDTH; x++)
+        {
+            if(board[y][x].flg)
+            {
+                board[y][x].color = COLOR_WHITE;
+            }
+        }
+    }
 }

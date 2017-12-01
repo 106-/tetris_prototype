@@ -20,7 +20,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	if( DxLib_Init() == -1 || SetDrawScreen(-2) != 0 )
 		return -1;
 	
-	switch_state(PLAYING);
+	switch_state(DEMONSTRATION);
 
 	while(ProcessMessage() == 0)
 	{
@@ -37,12 +37,21 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 					demo();
 				draw_block();
 				draw_dialogue("DEMONSTRATION");
+				if(button[BUTTON_ROTATE]==1)
+					switch_state(PLAYING);
 				break;
 			case PLAYING:
 				tetris_update();
 				draw_appearance();
 				draw_block();
 				draw_next_block();
+				break;
+			case GAMEOVER:
+				draw_appearance();
+				draw_block();
+				draw_dialogue("GAMEOVER");
+				if(button[BUTTON_ROTATE]==1)
+					switch_state(DEMONSTRATION);
 				break;
 		}
 
@@ -69,18 +78,24 @@ void debug_output()
 // 状態を変える関数. 状態遷移を起こす前の初期化などに使う.
 void switch_state(states next_state)
 {
-	init_block();
-	reset_buttons();
 
     switch(next_state)
     {
         case DEMONSTRATION:
+			reset_buttons();
+			init_block();
             state = DEMONSTRATION;
             break;
         case PLAYING:
+			reset_buttons();
+			init_block();
 			init_tetris();
             state = PLAYING;
             break;
+		case GAMEOVER:
+			reset_buttons();
+			state = GAMEOVER;
+			break;
     }
 }
 
