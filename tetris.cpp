@@ -149,6 +149,10 @@ void delete_line()
         if(is_can_delete(i))
         {
             drop_blocks(i);
+            // スコアを足して,落ちる速さも大きくしてみる.
+            score += 100;
+            if(freq > 5)
+                freq -= 2;
         }
     }
 }
